@@ -1,4 +1,4 @@
-caffe_root = '/home/sadeep/Desktop/crf-rnn-web-demo/caffe-fcn-sadeep/'
+caffe_root = '../../../crfasrnn/caffe-crfrnn'
 import sys
 sys.path.insert(0,caffe_root+'python')
 
@@ -7,8 +7,8 @@ import time
 import cPickle
 import datetime
 import logging
-import flask
-import werkzeug
+#import flask
+#import werkzeug
 import optparse
 import tornado.wsgi
 import tornado.httpserver
@@ -21,11 +21,16 @@ import exifutil
 
 import caffe
 
+IMAGE_NAME = 'cat'
+MODEL = 'fcn-32s-pascal'
 
-  
-MODEL_FILE = '/home/sadeep/Desktop/crf-rnn-web-demo/caffe-fcn-sadeep/models/crf_rnn/fcn-8s-pascal-deploy.prototxt'
-PRETRAINED = '/home/sadeep/Desktop/crf-rnn-web-demo/caffe-fcn-sadeep/models/crf_rnn/fcn-8s-pascal.caffemodel'
-IMAGE_FILE = '/home/sadeep/Desktop/crf-rnn-web-demo/caffe-fcn-sadeep/models/crf_rnn/2007_000033.jpg'
+MODEL_FILE = caffe_root + '/models/'+ MODEL + '/deploy.prototxt'
+PRETRAINED = caffe_root + '/models/' + MODEL + '/' + MODEL+ '.caffemodel'
+# IMAGE_FILE = '/home/sadeep/Desktop/crf-rnn-web-demo/caffe-fcn-sadeep/models/crf_rnn/2007_000033.jpg'
+IMAGE_FILE = caffe_root + '/examples/images/' + IMAGE_NAME + '.jpg'
+
+IMAGE_SAVE = caffe_root + '/examples/_temp/segdemo_' + IMAGE_NAME + '.png' 
+
 
 pallete = [0,0,0,
            128,0,0,
@@ -84,4 +89,6 @@ output_im = Image.fromarray(segmentation)
 
 output_im.putpalette(pallete);
 
-output_im.save('hahasadeep.png')
+
+output_im.save(IMAGE_SAVE)
+print 'output save as' + IMAGE_SAVE
