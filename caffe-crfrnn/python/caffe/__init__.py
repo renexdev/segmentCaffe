@@ -1,3 +1,4 @@
+#from ._caffe import PyNet
 from .pycaffe import Net, SGDSolver
 from .classifier import Classifier
 from .detector import Detector
